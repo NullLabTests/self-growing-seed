@@ -88,8 +88,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by concepts of recursive self-improvement in AI
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Lucide](https://lucide.dev/)
-- Matrix-style effects inspired by the digital rain from "The Matrix"
 
----
 
-Made with ❤️ by [Your Name/Team]
+
