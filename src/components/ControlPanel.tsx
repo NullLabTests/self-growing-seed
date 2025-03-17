@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Terminal, PauseIcon, PlayIcon, ZapIcon, BrainCircuitIcon, Sparkles, Code } from 'lucide-react';
 import { SeedState } from '@/utils/seedGrowth';
 import { playClickSound } from '@/utils/soundEffects';
+import { cn } from '@/lib/utils';
 
 interface ControlPanelProps {
   seed: SeedState;
@@ -95,7 +96,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <label className="text-xs font-mono text-primary/80">COMPLEXITY</label>
                 <span className="text-xs font-mono text-primary">{complexity}</span>
               </div>
-              <Progress value={Math.min(100, (complexity / 20) * 100)} className="h-1.5 bg-background/50" indicatorClassName="bg-primary" />
+              <Progress value={Math.min(100, (complexity / 20) * 100)} className="h-1.5 bg-background/50" />
             </div>
             
             <div className="space-y-1">
@@ -103,7 +104,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <label className="text-xs font-mono text-primary/80">KNOWLEDGE</label>
                 <span className="text-xs font-mono text-primary">{Math.round(averageKnowledge * 100)}%</span>
               </div>
-              <Progress value={averageKnowledge * 100} className="h-1.5 bg-background/50" indicatorClassName="bg-primary" />
+              <Progress value={averageKnowledge * 100} className="h-1.5 bg-background/50" />
             </div>
             
             <div className="space-y-1">

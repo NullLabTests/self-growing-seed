@@ -216,10 +216,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: theme('colors.primary/30');
+  background: rgba(120, 255, 120, 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: theme('colors.primary/50');
+  background: rgba(120, 255, 120, 0.5);
 }
