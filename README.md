@@ -1,7 +1,7 @@
 
 # 🌱 Self-Growing Seed AI
 
-A visual simulation of recursive self-improvement in artificial intelligence with a terminal-inspired interface. This project demonstrates how an AI system might evolve and grow over time, visualizing the connections and nodes that represent knowledge and complexity.
+A visual simulation of recursive self-improvement in artificial intelligence with a terminal-inspired interface. This project demonstrates how an AI system might evolve and grow over time, visualizing the connections and nodes that represent knowledge and complexity. I have a real version running in the cloud but it is just a terminal app and I would like to integrate something similar as a frontend soon.
 
 ## 🚀 Live Demo
 
