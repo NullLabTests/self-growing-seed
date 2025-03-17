@@ -3,7 +3,7 @@
 
 A visual simulation of recursive self-improvement in artificial intelligence with a terminal-inspired interface. This project demonstrates how an AI system might evolve and grow over time, visualizing the connections and nodes that represent knowledge and complexity.
 
-![Self-Growing Seed AI](public/og-image.png)
+
 
 ## 🚀 Features
 
