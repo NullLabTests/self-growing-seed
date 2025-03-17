@@ -3,7 +3,12 @@
 
 A visual simulation of recursive self-improvement in artificial intelligence with a terminal-inspired interface. This project demonstrates how an AI system might evolve and grow over time, visualizing the connections and nodes that represent knowledge and complexity.
 
+## 🚀 Live Demo
 
+Check out the live application:
+**[https://self-growing-seed.lovable.app/](https://self-growing-seed.lovable.app/)**
+
+![Self-Growing Seed AI](public/screenshots/preview.gif)
 
 ## 🚀 Features
 
@@ -28,8 +33,8 @@ A visual simulation of recursive self-improvement in artificial intelligence wit
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/self-growing-seed-ai.git
-   cd self-growing-seed-ai
+   git clone https://github.com/NullLabTests/RSI-SEED.git
+   cd RSI-SEED
    ```
 
 2. Install dependencies:
@@ -88,6 +93,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by concepts of recursive self-improvement in AI
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Lucide](https://lucide.dev/)
-
-
-
