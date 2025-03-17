@@ -87,6 +87,18 @@
   }
 }
 
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  .glassmorphism {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  }
+}
+
 .seed-container {
   perspective: 1000px;
 }
@@ -113,19 +125,6 @@
   to {
     stroke-dashoffset: 0;
   }
-}
-
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.neomorphism {
-  box-shadow: 
-    5px 5px 10px rgba(0, 0, 0, 0.1),
-    -5px -5px 10px rgba(255, 255, 255, 0.5);
 }
 
 /* Text selection */
