@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 import { SeedState } from '@/utils/seedGrowth';
 import GrowthNode from './GrowthNode';
 
@@ -16,12 +17,17 @@ const Seed: React.FC<SeedProps> = ({ seed, onNodeClick, growthHistory }) => {
   const [centerY, setCenterY] = useState(200);
   const [recentGrowth, setRecentGrowth] = useState<string[]>([]);
   const [rotation, setRotation] = useState(0);
+  const [pulseEffect, setPulseEffect] = useState(false);
   
-  // Update recent growth nodes
+  // Update recent growth nodes with animation trigger
   useEffect(() => {
     if (growthHistory.length > 0) {
       const latestNode = growthHistory[growthHistory.length - 1];
       setRecentGrowth(prev => [...prev, latestNode].slice(-3));
+      
+      // Trigger pulse animation
+      setPulseEffect(true);
+      setTimeout(() => setPulseEffect(false), 1000);
     }
   }, [growthHistory]);
   
@@ -64,16 +70,58 @@ const Seed: React.FC<SeedProps> = ({ seed, onNodeClick, growthHistory }) => {
   }, [recentGrowth]);
   
   return (
-    <div ref={containerRef} className="seed-container w-full h-full relative">
+    <div 
+      ref={containerRef} 
+      className={cn(
+        "seed-container w-full h-full relative", 
+        pulseEffect && "animate-pulse-soft"
+      )}
+    >
+      {/* Scanline effect */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute w-full h-1 bg-primary/5 animate-terminal-scan" />
+      </div>
+      
+      {/* Grid background */}
+      <svg 
+        className="absolute inset-0 w-full h-full pointer-events-none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <pattern 
+            id="grid" 
+            width="50" 
+            height="50" 
+            patternUnits="userSpaceOnUse"
+          >
+            <path 
+              d="M 50 0 L 0 0 0 50" 
+              fill="none" 
+              stroke="rgba(120, 255, 120, 0.05)" 
+              strokeWidth="0.5"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+      
       {/* SVG layer for connections */}
       <svg 
         ref={svgRef} 
-        className="absolute inset-0 w-full h-full" 
+        className="absolute inset-0 w-full h-full z-10" 
         style={{ 
           transform: `rotate(${rotation}deg)`,
           transition: 'transform 0.05s linear' 
         }}
       >
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        
         <g transform={`translate(${centerX}, ${centerY})`}>
           {seed.connections.map((connection, index) => {
             const sourceNode = seed.nodes[connection.source];
@@ -91,6 +139,15 @@ const Seed: React.FC<SeedProps> = ({ seed, onNodeClick, growthHistory }) => {
             const opacity = isHighlighted 
               ? 0.8
               : (0.2 + connection.strength * 0.4);
+
+            // Different colors for different types of connections
+            let strokeColor = "rgba(120, 255, 120, 0.5)"; // Default green
+            
+            if (sourceNode.connections.length > 3 || targetNode.connections.length > 3) {
+              strokeColor = "rgba(240, 240, 85, 0.5)"; // Yellow for complex nodes
+            } else if (connection.strength > 0.7) {
+              strokeColor = "rgba(120, 220, 255, 0.5)"; // Cyan for strong connections
+            }
               
             return (
               <line
@@ -100,9 +157,11 @@ const Seed: React.FC<SeedProps> = ({ seed, onNodeClick, growthHistory }) => {
                 x2={targetNode.x}
                 y2={targetNode.y}
                 className={isHighlighted ? 'node-line' : ''}
-                stroke="rgba(144, 205, 244, 0.5)"
+                stroke={strokeColor}
                 strokeWidth={strokeWidth}
                 strokeOpacity={opacity}
+                filter={isHighlighted ? "url(#glow)" : ""}
+                strokeDasharray={isHighlighted ? "0" : connection.strength < 0.5 ? "3,3" : "0"}
               />
             );
           })}
@@ -111,7 +170,7 @@ const Seed: React.FC<SeedProps> = ({ seed, onNodeClick, growthHistory }) => {
       
       {/* Nodes layer */}
       <div 
-        className="seed-sphere absolute inset-0"
+        className="seed-sphere absolute inset-0 z-20"
         style={{ 
           transform: `rotate(${rotation}deg)`,
           transition: 'transform 0.05s linear' 
